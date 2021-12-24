@@ -7,12 +7,16 @@ namespace Evaluasi.Models
     {
         public int CourseID { get; set; }
 
+        public int AuthorID { get; set; }
+
         [Required]
-        [MaxLength(100, ErrorMessage = "Maks. 100 Karakter")]
+        [MaxLength(100)]
         public string Title { get; set; }
 
         [Required]
-        [MaxLength(1500, ErrorMessage = "Maks. 1500 Karakter")]
+        [MaxLength(1500)]
         public string Description { get; set; }
+
+        public Author Author { get; set; }
     }
 }

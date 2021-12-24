@@ -52,10 +52,10 @@ namespace Evaluasi.DAL
         }
 
 
-        public async Task<IEnumerable<Author>> GetByFirstName(string FirstName)
+        public async Task<IEnumerable<Author>> GetByName(string Name)
         {
             var results = await (from a in _db.Authors
-                                 where a.FirstName.ToLower().Contains(FirstName.ToLower()) 
+                                 where a.FirstName.ToLower().Contains(Name.ToLower()) || a.LastName.ToLower().Contains(Name.ToLower())
                                  orderby a.FirstName ascending
                                  select a).ToListAsync();
             return results;
@@ -94,7 +94,5 @@ namespace Evaluasi.DAL
                 throw new Exception(dbEx.Message);
             }
         }
-
-
     }
 }

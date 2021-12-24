@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Evaluasi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211224055756_InitialCreate")]
+    [Migration("20211224081644_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,7 +58,7 @@ namespace Evaluasi.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AuthorID")
+                    b.Property<int>("AuthorID")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -80,9 +80,13 @@ namespace Evaluasi.Migrations
 
             modelBuilder.Entity("Evaluasi.Models.Course", b =>
                 {
-                    b.HasOne("Evaluasi.Models.Author", null)
+                    b.HasOne("Evaluasi.Models.Author", "Author")
                         .WithMany("Course")
-                        .HasForeignKey("AuthorID");
+                        .HasForeignKey("AuthorID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
                 });
 
             modelBuilder.Entity("Evaluasi.Models.Author", b =>

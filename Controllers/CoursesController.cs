@@ -25,33 +25,56 @@ namespace Evaluasi.Controllers
 
         // getAll
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Course>>> Get()
+        public async Task<ActionResult<IEnumerable<CourseDto>>> Get()
         {
             var results = await _course.GetAll();
-            return Ok(_mapper.Map<IEnumerable<Course>>(results));
+            return Ok(_mapper.Map<IEnumerable<CourseDto>>(results));
         }
+
 
         // getById
         [HttpGet("{id}")]
-        public async Task<ActionResult<Course>> Get(int id)
+        public async Task<ActionResult<CourseDto>> Get(int id)
         {
             var result = await _course.GetById(id.ToString());
             if (result == null)
                 return NotFound();
 
-            return Ok(_mapper.Map<Course>(result));
+            return Ok(_mapper.Map<CourseDto>(result));
         }
 
-        // POST api/<CoursesController>
+        // getByName
+        [HttpGet("bytitle")]
+        public async Task<ActionResult<IEnumerable<Course>>> GetByTitle(string title)
+        {
+            var results = await _course.GetByTitle(title);
+            if (results == null)
+                return NotFound();
+
+            return Ok(_mapper.Map<IEnumerable<CourseDto>>(results));
+        }
+
+        // getById
+        [HttpGet("byauthor")]
+        public async Task<ActionResult<IEnumerable<Course>>> GetByAuthor(int id)
+        {
+            var results = await _course.GetByAuthor(id);
+            if (results == null)
+                return NotFound();
+
+            return Ok(_mapper.Map<IEnumerable<CourseDto>>(results));
+        }
+
+        // insert author
         [HttpPost]
-        public async Task<ActionResult<Course>> Post([FromBody] CourseForCreateDto courseForCreateDto)
+        public async Task<ActionResult<CourseDto>> Post([FromBody] CourseForCreateDto coursetoCreateDto)
         {
             try
             {
-                var course = _mapper.Map<Models.Course>(courseForCreateDto);
+                var course = _mapper.Map<Models.Course>(coursetoCreateDto);
                 var result = await _course.Insert(course);
-                var coursedto = _mapper.Map<Models.Course>(result);
-                return Ok(coursedto);
+                var CourseDto = _mapper.Map<Dtos.CourseDto>(result);
+                return Ok(CourseDto);
             }
             catch (Exception ex)
             {
@@ -61,14 +84,14 @@ namespace Evaluasi.Controllers
 
         // editById
         [HttpPut("{id}")]
-        public async Task<ActionResult<CourseDto>> Put(int id, [FromBody] Course course)
+        public async Task<ActionResult<Course>> Put(int id, [FromBody] CourseForCreateDto coursetoCreateDto)
         {
             try
             {
-               //var course = _mapper.Map<Models.Course>(courseToCreateDto);
+                var course = _mapper.Map<Models.Course>(coursetoCreateDto);
                 var result = await _course.Update(id.ToString(), course);
-                //var coursedto = _mapper.Map<Models.Course>(result);
-                return Ok(result);
+                var CourseDto = _mapper.Map<Dtos.CourseDto>(result);
+                return Ok(CourseDto);
             }
             catch (Exception ex)
             {
@@ -90,13 +113,6 @@ namespace Evaluasi.Controllers
             {
                 return BadRequest(ex.Message);
             }
-        }
-
-        [HttpGet("bytitle")]
-        public async Task<IEnumerable<Course>> GetByTitle(string title)
-        {
-            var results = await _course.GetByTitle(title);
-            return results;
         }
     }
 }

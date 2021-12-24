@@ -41,6 +41,18 @@ namespace Evaluasi.DAL
             return results;
         }
 
+        public async Task<IEnumerable<Course>> GetByAuthor(int id)
+        {
+            
+            var results = await(from c in _db.Courses
+                               where c.AuthorID == Convert.ToInt32(id)
+                               select c).ToListAsync();
+
+            if (results == null) throw new Exception($"data id {id} tidak ditemukan");
+
+            return results;
+        }
+
         public async Task<Course> GetById(string id)
         {
             var result = await (from c in _db.Courses
@@ -80,6 +92,7 @@ namespace Evaluasi.DAL
             {
                 var result = await GetById(id);
                 if (result == null) throw new Exception($"data course id {id} tidak ditemukan");
+                result.AuthorID = obj.AuthorID; 
                 result.Title = obj.Title;
                 result.Description = obj.Description;
                 await _db.SaveChangesAsync();

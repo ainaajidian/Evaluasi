@@ -6,6 +6,9 @@ namespace Evaluasi.Dtos
     public class CourseForCreateDto
     {
         [Required]
+        public int AuthorID { get; set; }
+
+        [Required]
         [MaxLength(100, ErrorMessage = "Maks. 100 Karakter")]
         public string Title { get; set; }
 

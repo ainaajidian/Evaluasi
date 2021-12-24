@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Evaluasi.Models;
 using System;
 
 namespace Evaluasi.Profiles
@@ -9,13 +10,9 @@ namespace Evaluasi.Profiles
         {
             CreateMap<Models.Author, Dtos.AuthorDto>()
                 .ForMember(dest => dest.Name,
-                opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"));
-
-
-
-            /*CreateMap<Models.Author, Dtos.AuthorDto>()
+                opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
                .ForMember(dest => dest.Age,
-               opt => opt.MapFrom(src => $"{src.DateOfBirth}"));*/
+               opt => opt.MapFrom(src => $"{DateTime.Now.Year - src.DateOfBirth.Year}"));
 
             CreateMap<Dtos.AuthorForCreateDto, Models.Author>();
         }

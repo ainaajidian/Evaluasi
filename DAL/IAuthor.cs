@@ -7,6 +7,6 @@ namespace Evaluasi.DAL
 {
     public interface IAuthor : ICrud<Author>
     {
-        Task<IEnumerable<Author>> GetByFirstName(string FirstName);
+        Task<IEnumerable<Author>> GetByName(string Name);
     }
 }

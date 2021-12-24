@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Evaluasi.Dtos
 {
+    [FirstLastNameMustBeDifferentAttribute]
     public class AuthorForCreateDto
     {
         [Required]

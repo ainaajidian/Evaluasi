@@ -44,14 +44,15 @@ namespace Evaluasi.Controllers
 
         // getByName
         [HttpGet("byname")]
-        public async Task<ActionResult<IEnumerable<Author>>> GetByFirstName(string FirstName)
+        public async Task<ActionResult<IEnumerable<Author>>> GetByName(string Name)
         {
-            var results = await _author.GetByFirstName(FirstName);
+            var results = await _author.GetByName(Name);
             if (results == null)
                 return NotFound();
 
-            return Ok(_mapper.Map<IEnumerable<Author>>(results));
+            return Ok(_mapper.Map<IEnumerable<AuthorDto>>(results));
         }
+
 
         // insert author
         [HttpPost]

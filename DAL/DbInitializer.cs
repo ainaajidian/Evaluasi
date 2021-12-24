@@ -33,11 +33,11 @@ namespace Evaluasi.DAL
 
             var courses = new Course[]
             {
-                new Course{Title="Cloud Fundamentals",Description="This Book For Study Purpose Only"},
-                new Course{Title="Microservices Architecture",Description="This Book For Study Purpose Only"},
-                new Course{Title="Frontend Programming",Description="This Book For Study Purpose Only"},
-                new Course{Title="Backend RESTful API",Description="This Book For Study Purpose Only"},
-                new Course{Title="Entity Frmework Core",Description="This Book For Study Purpose Only"}
+                new Course{Title="Cloud Fundamentals",Description="This Book For Study Purpose Only",AuthorID=1},
+                new Course{Title="Microservices Architecture",Description="This Book For Study Purpose Only",AuthorID=1},
+                new Course{Title="Frontend Programming",Description="This Book For Study Purpose Only",AuthorID=3},
+                new Course{Title="Backend RESTful API",Description="This Book For Study Purpose Only",AuthorID=2},
+                new Course{Title="Entity Frmework Core",Description="This Book For Study Purpose Only",AuthorID=3}
             };
 
             foreach (var c in courses)
